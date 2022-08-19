@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import {userCollection} from "../db.js";
-import {generateToken, isPasswordMatch} from "../middlewares/authentification.js";
+import {generateToken, isPasswordMatch} from "../utils/jwt.js";
 
 export async function signup(req, res) {
     try {
@@ -24,7 +24,7 @@ export async function login(req, res) {
         const {username, password} = req.body
         const user = await isPasswordMatch(username, password);
         const token = await generateToken(user);
-        res.send({userId: user._id, token})
+        res.status(200).send({userId: user._id, token})
     } catch (e) {
         new Error(e)
     }

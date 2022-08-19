@@ -1,22 +1,14 @@
-import {userCollection} from "../db.js";
+import jwt from "jsonwebtoken";
+import {config} from 'dotenv'
 import bcrypt from "bcrypt";
-import jwt from 'jsonwebtoken';
-import {config} from "dotenv";
 config()
 
-export async function isPasswordMatch(username, password) {
-        const user = await userCollection.findOne({username})
-        const isPasswordMatch = await bcrypt.compare(password, user.password)
-        if (!isPasswordMatch) {
-           new Error('user not found');
-        }
-        return user
+export async function verifyToken(req, res, next) {
+    try {
+        const token = req.header('Authorization').replace('Bearer ', '')
+        const data = req.decoded = jwt.verify(token,  process.env.JWT_SECRET);
+        return next()
+    } catch (error) {
+       new Error(error)
     }
-
-export async function generateToken(user) {
-        const key = process.env.JWT_SECRET;
-        const bcryptKey = await bcrypt.hash(key,8);
-        const token = jwt.sign({_id: user._id, username: user.username}, bcryptKey, {expiresIn: "24h"})
-        return token
 }
-
