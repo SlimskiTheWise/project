@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import {config} from 'dotenv'
-import bcrypt from "bcrypt";
 config()
 
 export async function verifyToken(req, res, next) {
