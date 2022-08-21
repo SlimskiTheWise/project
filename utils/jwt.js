@@ -15,6 +15,6 @@ export async function isPasswordMatch(username, password) {
 
 export async function generateToken(user) {
     const key = process.env.JWT_SECRET;
-    const token = jwt.sign({_id: user._id, username: user.username}, key, {expiresIn: "24h"})
+    const token = jwt.sign({_id: user._id, username: user.username}, key)
     return token
 }
