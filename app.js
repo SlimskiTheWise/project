@@ -1,7 +1,7 @@
 import express from "express";
 import router from "./routers/userRouter.js";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
