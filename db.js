@@ -1,8 +1,6 @@
 import {MongoClient} from "mongodb";
-import {config} from 'dotenv'
-config()
 
-const client = new MongoClient(process.env.MONGODB_URI, {
+const client = new MongoClient("mongodb://localhost:27017", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
