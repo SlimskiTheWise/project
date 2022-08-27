@@ -6,6 +6,6 @@ const router = express.Router()
 router.post('/user/create', signup)
 router.post('/user/login', login)
 router.get('/user', verifyToken , (req, res) => {
-    console.log(res.json(req.decoded));
+    res.json(req.decoded);
 })
 export default router
