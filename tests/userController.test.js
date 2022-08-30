@@ -5,6 +5,8 @@ import {config} from 'dotenv'
 config()
 import bcrypt from "bcrypt";
 
+const db = client.db("DBLab");
+
 const token = process.env.TOKEN
 
 let server;
@@ -14,6 +16,7 @@ const {default: user} = await import("./user.json");
 
 beforeAll(async () => {server = app.listen(3333); req = agent(server, {})})
 afterAll(async () => {await closeDB(); server.close()})
+beforeEach(async () => {await db.dropDatabase()})
 
 async function seedUser() {
     const collection = client.db("mall").collection("users");
